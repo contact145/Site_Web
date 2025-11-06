@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="preload">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    html.preload body { visibility: hidden; }
+    html.preload { background: #0F2A1F; }
+
+    /* ——— Ajustements mobiles locaux à la page TEAM ——— */
+    @media (max-width: 640px){
+      .team--tight{ padding: 8px 16px 28px !important; }
+      .team__title{ font-size: 2.1rem !important; margin-bottom: .25em !important; }
+      .team__bar{ width: 64px !important; height: 3px !important; margin: 0 auto 1.1em !important; }
+      .team-members{ grid-template-columns: 1fr !important; gap: 14px !important; }
+      .member-card{ padding: 16px !important; border-radius: 14px !important; }
+      .member-card figure img{ width: 160px !important; height: 160px !important; }
+      .member-card h2{ font-size: 1.35rem !important; }
+    }
+  </style>
+
+  <script>
+  (function () {
+    var SUPPORTED = ['en','fr','ar'];
+    var q = new URL(location.href).searchParams.get('lang');
+    var saved = localStorage.getItem('lang');
+    var L = SUPPORTED.includes(q||'') ? q : (SUPPORTED.includes(saved||'') ? saved : 'en');
+    document.documentElement.setAttribute('lang', L);
+    document.documentElement.setAttribute('dir', L === 'ar' ? 'rtl' : 'ltr');
+    window.__PL_START_LANG__ = L;
+  })();
+  </script>
+
+  <title data-i18n="nav.team">Team — Power Link</title>
+  <meta name="description" content="Meet the Power Link team.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body class="page-enter">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="/index.html"><img src="/assets/logo.jpg" alt="Power Link"></a>
+      <nav class="nav">
+        <a href="/index.html" data-i18n="nav.home">Home</a>
+        <a href="/services.html" data-i18n="nav.services">Services</a>
+        <a href="/team.html" data-i18n="nav.team" aria-current="page">Team</a>
+        <a href="/contact.html" data-i18n="nav.contact">Contact</a>
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="fr" aria-label="Français"><img src="/assets/flags/fr.svg" alt=""></button>
+          <button class="lang-btn active" data-lang="en" aria-label="English"><img src="/assets/flags/gb.svg" alt=""></button>
+          <button class="lang-btn" data-lang="ar" aria-label="العربية"><img src="/assets/flags/sa.svg" alt=""></button>
+        </div>
+      </nav>
+      <button class="hamburger" aria-label="Open menu"><span></span></button>
+    </div>
+  </header>
+
+  <aside class="drawer" aria-hidden="true">
+    <div class="overlay"></div>
+    <div class="panel">
+      <div class="drawer-header">
+        <h3 class="drawer-title" data-i18n="nav.home">Main Menu</h3>
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="fr"><img src="/assets/flags/fr.svg" alt=""></button>
+          <button class="lang-btn active" data-lang="en"><img src="/assets/flags/gb.svg" alt=""></button>
+          <button class="lang-btn" data-lang="ar"><img src="/assets/flags/sa.svg" alt=""></button>
+        </div>
+        <button class="drawer-close" aria-label="Close menu">✕</button>
+      </div>
+      <nav class="drawer-list">
+        <a href="/index.html" data-i18n="nav.home">Home</a>
+        <a href="/services.html" data-i18n="nav.services">Services</a>
+        <a href="/team.html" data-i18n="nav.team" aria-current="page">Team</a>
+        <a href="/contact.html" data-i18n="nav.contact">Contact</a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- TEAM -->
+  <main class="page-root" id="main-content">
+    <section class="team team--tight" aria-labelledby="team-title"
+             style="max-width:1400px;margin:0 auto;padding:10px 24px 40px;text-align:center;">
+      <header style="margin-bottom:2rem;">
+        <h1 id="team-title" class="team__title" data-i18n="team.title"
+            style="text-transform:uppercase;font-size:2.5rem;font-weight:700;letter-spacing:.02em;margin-bottom:.3em;">
+          TEAM
+        </h1>
+        <div class="team__bar" style="width:80px;height:3px;background:var(--green-300);margin:0 auto 1.5em;border-radius:2px;"></div>
+      </header>
+
+      <div class="team-members" style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));align-items:start;">
+        <!-- Ryad -->
+        <article class="member-card" itemscope itemtype="https://schema.org/Person"
+                 style="background:#fff;border-radius:16px;padding:1.75rem;box-shadow:0 8px 24px rgba(0,0,0,.08);text-align:center;">
+          <figure style="margin:0;">
+            <img src="/assets/team/ryad.jpg" alt="Ryad Mansouri" loading="lazy"
+                 style="width:200px;height:200px;object-fit:cover;border-radius:50%;">
+          </figure>
+          <h2 itemprop="name" style="margin:1rem 0 .25rem;font-size:1.5rem;line-height:1.2;font-weight:800;color:#16402B;">
+            Ryad Mansouri
+          </h2>
+          <p itemprop="jobTitle" style="margin:0;font-weight:700;letter-spacing:.5px;color:#16402B;">
+            CEO / SITE MANAGER
+          </p>
+          <p style="margin-top:.5rem;font-weight:500;color:#16402B;">
+            3 years of experience as a site manager
+          </p>
+        </article>
+
+        <!-- Sullivan -->
+        <article class="member-card" itemscope itemtype="https://schema.org/Person"
+                 style="background:#fff;border-radius:16px;padding:1.75rem;box-shadow:0 8px 24px rgba(0,0,0,.08);text-align:center;">
+          <figure style="margin:0;">
+            <img src="/assets/team/sullivan.jpg" alt="Sullivan Armougom" loading="lazy"
+                 style="width:200px;height:200px;object-fit:cover;border-radius:50%;">
+          </figure>
+          <h2 itemprop="name" style="margin:1rem 0 .25rem;font-size:1.5rem;line-height:1.2;font-weight:800;color:#16402B;">
+            Sullivan Armougom
+          </h2>
+          <p itemprop="jobTitle" style="margin:0;font-weight:700;letter-spacing:.5px;color:#16402B;">
+            CEO / ENGINEER
+          </p>
+          <p style="margin-top:.5rem;font-weight:500;color:#16402B;">
+            2 years of experience in renewable energy
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">© 2025 Power Link</footer>
+  <script src="/js/i18n.js"></script>
+</body>
+</html>
