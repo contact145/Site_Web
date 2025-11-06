@@ -1,0 +1,55 @@
+{
+  "meta.title": "باور لينك — طاقة نظيفة وأنيقة",
+  "meta.desc": "حلول الطاقة الشمسية وشحن المركبات الكهربائية عالية الأداء والتصميم.",
+
+  "nav.menu": "القائمة",
+  "nav.home": "الرئيسية",
+  "nav.about": "من نحن",
+  "nav.services": "الخدمات",
+  "nav.team": "الفريق",
+  "nav.contact": "اتصل بنا",
+
+  "hero.title": "باور لينك — طاقة نقية بتصميم ذكي وأداء متميز.",
+  "hero.slogan": "طاقة نقية. تصميم ذكي.",
+  "hero.lead": "أنظمة شمسية وشحن كهربائي للمركبات. من الاستشارات والتصميم إلى التركيب والصيانة طويلة الأمد.",
+  "cta.primary": "استكشف خدماتنا",
+
+  "home.value.title": "لماذا باور لينك",
+  "home.value.perfTitle": "الأداء",
+  "home.value.designTitle": "التصميم",
+  "home.value.relTitle": "الاعتمادية",
+  "home.value.perf": "إنتاجية مثالية باستخدام مكونات موثوقة وحسابات دقيقة.",
+  "home.value.design": "دمج جمالي على الأسطح والواجهات مع مسارات كابلات أنيقة.",
+  "home.value.rel": "مراقبة وصيانة وضمانات قوية لراحة البال.",
+
+  "home.projects.title": "مشاريع مختارة",
+  "home.projects.lead": "نماذج من مشاريعنا التي تعكس التزامنا بالأداء والسلامة وجودة التنفيذ.",
+  "home.projects.rooftop": "سطح تجاري — 120 كيلوواط",
+  "home.projects.ev": "محطة شحن كهربائي — 8 نقاط تيار مستمر",
+  "home.projects.ground": "تركيب أرضي — 300 كيلوواط",
+  "home.projects.rooftop.alt": "مصفوفة كهروضوئية على السطح",
+  "home.projects.ev.alt": "مظلة شحن للمركبات الكهربائية",
+  "home.projects.ground.alt": "نظام مثبت على الأرض",
+
+  "home.cta.title": "هل أنت مستعد لبدء مشروعك؟",
+  "home.cta.lead": "احصل على عرض مخصص أو تواصل مع مهندسينا.",
+  "home.cta.btn": "اتصل بنا",
+
+  "contact.title": "تواصل معنا",
+  "contact.label.name": "الاسم الكامل",
+  "contact.label.email": "البريد الإلكتروني",
+  "contact.label.message": "الرسالة",
+  "contact.placeholder.name": "اسمك",
+  "contact.placeholder.email": "بريدك الإلكتروني",
+  "contact.placeholder.message": "اكتب رسالتك…",
+  "contact.send": "إرسال",
+  "contact.success": "شكرًا لك! تم إرسال رسالتك بنجاح. سيتواصل فريقنا معك قريبًا.",
+
+  "team.title": "الفريق",
+  "team.ryad.name": "رياض منصوري",
+  "team.ryad.role": "المدير التنفيذي / مدير المشروع",
+  "team.ryad.exp": "خبرة 3 سنوات في إدارة المشاريع.",
+  "team.sullivan.name": "سوليفان أرموغوم",
+  "team.sullivan.role": "المدير التنفيذي / مهندس",
+  "team.sullivan.exp": "خبرة سنتين في مجال الطاقة المتجددة."
+}

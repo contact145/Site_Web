@@ -1,0 +1,55 @@
+{
+  "meta.title": "Power Link — clean, elegant energy",
+  "meta.desc": "High-performance solar and EV charging solutions.",
+
+  "nav.menu": "Menu",
+  "nav.home": "Home",
+  "nav.about": "About Us",
+  "nav.services": "Services",
+  "nav.team": "Team",
+  "nav.contact": "Contact",
+
+  "hero.title": "Power Link — clean energy that looks good and performs even better.",
+  "hero.slogan": "Pure energy. Smart design.",
+  "hero.lead": "Photovoltaic systems and smart EV charging. From consulting and design to installation and long-term maintenance.",
+  "cta.primary": "Explore our services",
+
+  "home.value.title": "Why Power Link",
+  "home.value.perfTitle": "Performance",
+  "home.value.designTitle": "Design",
+  "home.value.relTitle": "Reliability",
+  "home.value.perf": "Optimized yield with bankable components and precise sizing.",
+  "home.value.design": "Aesthetic integration on rooftops and façades, clean cable paths.",
+  "home.value.rel": "Monitoring, maintenance and strong warranties for peace of mind.",
+
+  "home.projects.title": "Featured Projects",
+  "home.projects.lead": "Selected installations demonstrating our focus on performance, safety, and finish quality.",
+  "home.projects.rooftop": "Commercial rooftop — 120 kWp",
+  "home.projects.ev": "EV charging hub — 8 DC points",
+  "home.projects.ground": "Ground-mount — 300 kWp",
+  "home.projects.rooftop.alt": "Rooftop PV array",
+  "home.projects.ev.alt": "EV charging canopy",
+  "home.projects.ground.alt": "Ground-mounted system",
+
+  "home.cta.title": "Ready to start your project?",
+  "home.cta.lead": "Get a custom quote or talk to our engineers.",
+  "home.cta.btn": "Contact us",
+
+  "contact.title": "Contact Us",
+  "contact.label.name": "Full name",
+  "contact.label.email": "Email",
+  "contact.label.message": "Message",
+  "contact.placeholder.name": "Your name",
+  "contact.placeholder.email": "Your email",
+  "contact.placeholder.message": "Your message…",
+  "contact.send": "Send",
+  "contact.success": "Thanks! Your message has been sent. Our team will get back to you as soon as possible.",
+
+  "team.title": "Team",
+  "team.ryad.name": "Ryad Mansouri",
+  "team.ryad.role": "CEO / Site Manager",
+  "team.ryad.exp": "3 years of experience as a site manager.",
+  "team.sullivan.name": "Sullivan Armougom",
+  "team.sullivan.role": "CEO / Engineer",
+  "team.sullivan.exp": "2 years of experience in renewable energy."
+}

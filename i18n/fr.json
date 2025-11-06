@@ -1,1 +1,55 @@
+{
+  "meta.title": "Power Link — énergie propre & élégante",
+  "meta.desc": "Solutions photovoltaïques et bornes de recharge haute performance.",
 
+  "nav.menu": "Menu",
+  "nav.home": "Accueil",
+  "nav.about": "À propos",
+  "nav.services": "Services",
+  "nav.team": "Équipe",
+  "nav.contact": "Contact",
+
+  "hero.title": "Power Link — une énergie propre, un design intelligent et des performances supérieures.",
+  "hero.slogan": "Énergie pure. Design intelligent.",
+  "hero.lead": "Systèmes photovoltaïques et bornes de recharge intelligentes. Du conseil et design à l’installation et la maintenance longue durée.",
+  "cta.primary": "Découvrir nos services",
+
+  "home.value.title": "Pourquoi Power Link",
+  "home.value.perfTitle": "Performance",
+  "home.value.designTitle": "Design",
+  "home.value.relTitle": "Fiabilité",
+  "home.value.perf": "Rendement optimisé avec des composants fiables et un dimensionnement précis.",
+  "home.value.design": "Intégration esthétique sur toitures et façades, chemins de câbles soignés.",
+  "home.value.rel": "Suivi, maintenance et garanties solides pour une tranquillité d’esprit totale.",
+
+  "home.projects.title": "Projets réalisés",
+  "home.projects.lead": "Une sélection d’installations illustrant notre exigence en matière de performance, de sécurité et de qualité de finition.",
+  "home.projects.rooftop": "Toiture commerciale — 120 kWc",
+  "home.projects.ev": "Station de recharge — 8 points DC",
+  "home.projects.ground": "Installation au sol — 300 kWc",
+  "home.projects.rooftop.alt": "Champ PV en toiture",
+  "home.projects.ev.alt": "Auvent de recharge EV",
+  "home.projects.ground.alt": "Installation au sol",
+
+  "home.cta.title": "Prêt à démarrer votre projet ?",
+  "home.cta.lead": "Obtenez un devis personnalisé ou échangez avec nos ingénieurs.",
+  "home.cta.btn": "Nous contacter",
+
+  "contact.title": "Contactez-nous",
+  "contact.label.name": "Nom complet",
+  "contact.label.email": "E-mail",
+  "contact.label.message": "Message",
+  "contact.placeholder.name": "Votre nom",
+  "contact.placeholder.email": "Votre e-mail",
+  "contact.placeholder.message": "Votre message…",
+  "contact.send": "Envoyer",
+  "contact.success": "Merci ! Votre message a bien été envoyé. Notre équipe vous répondra dans les plus brefs délais.",
+
+  "team.title": "Équipe",
+  "team.ryad.name": "Ryad Mansouri",
+  "team.ryad.role": "PDG / Conducteur de travaux",
+  "team.ryad.exp": "3 ans d’expérience en gestion de projets photovoltaïques.",
+  "team.sullivan.name": "Sullivan Armougom",
+  "team.sullivan.role": "PDG / Ingénieur",
+  "team.sullivan.exp": "2 ans d’expérience dans les énergies renouvelables."
+}
