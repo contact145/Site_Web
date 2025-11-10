@@ -32,7 +32,8 @@
   })();
   </script>
 
-  <title data-i18n="nav.team">Team — Power Link</title>
+  <!-- Titre branché sur la clé de page -->
+  <title data-i18n="team.title">Team</title>
   <meta name="description" content="Meet the Power Link team.">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -60,7 +61,8 @@
     <div class="overlay"></div>
     <div class="panel">
       <div class="drawer-header">
-        <h3 class="drawer-title" data-i18n="nav.home">Main Menu</h3>
+        <!-- Titre du tiroir -> clé "nav.menu" -->
+        <h3 class="drawer-title" data-i18n="nav.menu">Main Menu</h3>
         <div class="lang-switch">
           <button class="lang-btn" data-lang="fr"><img src="/assets/flags/fr.svg" alt=""></button>
           <button class="lang-btn active" data-lang="en"><img src="/assets/flags/gb.svg" alt=""></button>
@@ -97,15 +99,12 @@
             <img src="/assets/team/ryad.jpg" alt="Ryad Mansouri" loading="lazy"
                  style="width:200px;height:200px;object-fit:cover;border-radius:50%;">
           </figure>
-          <h2 itemprop="name" style="margin:1rem 0 .25rem;font-size:1.5rem;line-height:1.2;font-weight:800;color:#16402B;">
-            Ryad Mansouri
-          </h2>
-          <p itemprop="jobTitle" style="margin:0;font-weight:700;letter-spacing:.5px;color:#16402B;">
-            CEO / SITE MANAGER
-          </p>
-          <p style="margin-top:.5rem;font-weight:500;color:#16402B;">
-            3 years of experience as a site manager
-          </p>
+          <h2 itemprop="name" style="margin:1rem 0 .25rem;font-size:1.5rem;line-height:1.2;font-weight:800;color:#16402B;"
+              data-i18n="team.ryad.name">Ryad Mansouri</h2>
+          <p itemprop="jobTitle" style="margin:0;font-weight:700;letter-spacing:.5px;color:#16402B;"
+             data-i18n="team.ryad.role">CEO / SITE MANAGER</p>
+          <p style="margin-top:.5rem;font-weight:500;color:#16402B;"
+             data-i18n="team.ryad.exp">3 years of experience as a site manager</p>
         </article>
 
         <!-- Sullivan -->
@@ -115,15 +114,12 @@
             <img src="/assets/team/sullivan.jpg" alt="Sullivan Armougom" loading="lazy"
                  style="width:200px;height:200px;object-fit:cover;border-radius:50%;">
           </figure>
-          <h2 itemprop="name" style="margin:1rem 0 .25rem;font-size:1.5rem;line-height:1.2;font-weight:800;color:#16402B;">
-            Sullivan Armougom
-          </h2>
-          <p itemprop="jobTitle" style="margin:0;font-weight:700;letter-spacing:.5px;color:#16402B;">
-            CEO / ENGINEER
-          </p>
-          <p style="margin-top:.5rem;font-weight:500;color:#16402B;">
-            2 years of experience in renewable energy
-          </p>
+          <h2 itemprop="name" style="margin:1rem 0 .25rem;font-size:1.5rem;line-height:1.2;font-weight:800;color:#16402B;"
+              data-i18n="team.sullivan.name">Sullivan Armougom</h2>
+          <p itemprop="jobTitle" style="margin:0;font-weight:700;letter-spacing:.5px;color:#16402B;"
+             data-i18n="team.sullivan.role">CEO / ENGINEER</p>
+          <p style="margin-top:.5rem;font-weight:500;color:#16402B;"
+             data-i18n="team.sullivan.exp">2 years of experience in renewable energy</p>
         </article>
       </div>
     </section>
