@@ -20,19 +20,21 @@
     }
   </style>
 
+  <!-- Boot langue: lit ?lang=, sinon localStorage 'pl_lang', sinon EN par défaut -->
   <script>
   (function () {
     var SUPPORTED = ['en','fr','ar'];
-    var q = new URL(location.href).searchParams.get('lang');
-    var saved = localStorage.getItem('lang');
+    var q = new URL(location.href).searchParams.get('lang');           // prioritaire
+    var saved = localStorage.getItem('pl_lang') || localStorage.getItem('lang'); // compat
     var L = SUPPORTED.includes(q||'') ? q : (SUPPORTED.includes(saved||'') ? saved : 'en');
+    localStorage.setItem('pl_lang', L);                                 // normalise
     document.documentElement.setAttribute('lang', L);
     document.documentElement.setAttribute('dir', L === 'ar' ? 'rtl' : 'ltr');
     window.__PL_START_LANG__ = L;
   })();
   </script>
 
-  <!-- Titre branché sur la clé de page -->
+  <!-- Titre branché i18n -->
   <title data-i18n="team.title">Team</title>
   <meta name="description" content="Meet the Power Link team.">
   <link rel="stylesheet" href="/css/styles.css">
@@ -61,7 +63,7 @@
     <div class="overlay"></div>
     <div class="panel">
       <div class="drawer-header">
-        <!-- Titre du tiroir -> clé "nav.menu" -->
+        <!-- Titre du tiroir -->
         <h3 class="drawer-title" data-i18n="nav.menu">Main Menu</h3>
         <div class="lang-switch">
           <button class="lang-btn" data-lang="fr"><img src="/assets/flags/fr.svg" alt=""></button>
