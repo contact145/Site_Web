@@ -11,7 +11,6 @@
 
   <!-- Ajustements spécifiques à la page d’accueil -->
   <style>
-    /* ---------- Cartes & Sections ---------- */
     .value-grid, .projects-grid{
       display:grid;
       grid-template-columns:repeat(3,1fr);
@@ -51,7 +50,6 @@
     .project-card figcaption{padding:12px 16px;color:#E6F3EA}
     .project-card img{display:block;width:100%;height:220px;object-fit:cover}
 
-    /* ---------- Titres ---------- */
     .section-title{
       margin:0;
       color:var(--green-300);
@@ -66,6 +64,19 @@
       border-radius:999px;
     }
   </style>
+
+  <!-- Boot langue (EN par défaut) -->
+  <script>
+  (function () {
+    const SUPPORTED = ['en','fr','ar'];
+    const q = new URL(location.href).searchParams.get('lang');
+    const saved = localStorage.getItem('pl_lang') || localStorage.getItem('lang');
+    const L = SUPPORTED.includes(q||'') ? q : (SUPPORTED.includes(saved||'') ? saved : 'en');
+    localStorage.setItem('pl_lang', L);
+    document.documentElement.lang = L;
+    document.documentElement.dir  = (L === 'ar' ? 'rtl' : 'ltr');
+  })();
+  </script>
 </head>
 
 <body class="page-enter">
@@ -100,9 +111,9 @@
       <div class="drawer-header">
         <h3 class="drawer-title" data-i18n="nav.menu">Menu</h3>
         <div class="lang-switch">
-          <button class="lang-btn" data-lang="fr" aria-label="Français"><img src="/assets/flags/fr.svg" alt=""></button>
-          <button class="lang-btn" data-lang="en" aria-label="English"><img src="/assets/flags/gb.svg" alt=""></button>
-          <button class="lang-btn" data-lang="ar" aria-label="العربية"><img src="/assets/flags/sa.svg" alt=""></button>
+          <button class="lang-btn" data-lang="fr"><img src="/assets/flags/fr.svg" alt=""></button>
+          <button class="lang-btn" data-lang="en"><img src="/assets/flags/gb.svg" alt=""></button>
+          <button class="lang-btn" data-lang="ar"><img src="/assets/flags/sa.svg" alt=""></button>
         </div>
         <button class="drawer-close" aria-label="Close menu">✕</button>
       </div>
@@ -117,15 +128,15 @@
 
   <!-- HERO -->
   <section class="hero" style="text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:52vh;padding-bottom:10px;">
-    <h1 style="font-size:clamp(36px,6vw,72px);margin:0;color:#fff;letter-spacing:.5px;text-transform:uppercase;">
-      POWER LINK
+    <h1 style="font-size:clamp(36px,6vw,72px);margin:0;color:#fff;letter-spacing:.5px;text-transform:uppercase;" data-i18n="hero.title">
+      Power Link — clean energy that looks good and performs even better.
     </h1>
     <p class="slogan" data-i18n="hero.slogan"
        style="font-size:20px;font-weight:600;margin:10px 0 20px;color:var(--green-300);text-transform:uppercase;letter-spacing:1px;">
       Pure energy. Smart design.
     </p>
     <p style="margin:0;">
-      <a class="btn" data-i18n="cta.primary" href="/services.html">Explore our services</a>
+      <a class="btn" data-i18n="cta.primary" href="/services.html">Discover our services</a>
     </p>
   </section>
 
@@ -136,19 +147,19 @@
 
     <div class="value-grid">
       <div class="value-card">
-        <h3>Performance</h3>
+        <h3 data-i18n="home.value.perfTitle">Performance</h3>
         <p data-i18n="home.value.perf">
           Optimized yield with bankable components and precise sizing.
         </p>
       </div>
       <div class="value-card">
-        <h3>Design</h3>
+        <h3 data-i18n="home.value.designTitle">Design</h3>
         <p data-i18n="home.value.design">
           Aesthetic integration on rooftops and façades, clean cable paths.
         </p>
       </div>
       <div class="value-card">
-        <h3>Reliability</h3>
+        <h3 data-i18n="home.value.relTitle">Reliability</h3>
         <p data-i18n="home.value.rel">
           Monitoring, maintenance and strong warranties for peace of mind.
         </p>
@@ -166,16 +177,16 @@
 
     <div class="projects-grid">
       <figure class="project-card">
-        <img src="/assets/projects/rooftop-1.jpg" alt="Rooftop PV array">
-        <figcaption>Commercial rooftop — 120 kWp</figcaption>
+        <img src="/assets/projects/rooftop-1.jpg" alt="Rooftop PV array" data-i18n="home.projects.rooftop.alt">
+        <figcaption data-i18n="home.projects.rooftop">Commercial rooftop — 120 kWp</figcaption>
       </figure>
       <figure class="project-card">
-        <img src="/assets/projects/ev-1.jpg" alt="EV charging canopy">
-        <figcaption>EV charging hub — 8 DC points</figcaption>
+        <img src="/assets/projects/ev-1.jpg" alt="EV charging canopy" data-i18n="home.projects.ev.alt">
+        <figcaption data-i18n="home.projects.ev">EV charging hub — 8 DC points</figcaption>
       </figure>
       <figure class="project-card">
-        <img src="/assets/projects/ground-1.jpg" alt="Ground-mounted system">
-        <figcaption>Ground-mount — 300 kWp</figcaption>
+        <img src="/assets/projects/ground-1.jpg" alt="Ground-mounted system" data-i18n="home.projects.ground.alt">
+        <figcaption data-i18n="home.projects.ground">Ground-mount — 300 kWp</figcaption>
       </figure>
     </div>
   </section>
@@ -195,7 +206,7 @@
   <footer class="site-footer">© 2025 Power Link</footer>
 
   <!-- JS -->
-  <script src="/js/i18n.js"></script>
+  <script src="./js/i18n.js" defer></script>
   <noscript>Enable JavaScript to view this site correctly.</noscript>
 </body>
 </html>
