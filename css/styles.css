@@ -95,7 +95,7 @@ html.no-vt *{view-transition-name:none!important;}
 .hamburger span::before{position:absolute;transform:translateY(-6px)}
 .hamburger span::after{position:absolute;transform:translateY(6px)}
 
-/* Conteneur de drawer fixe (restait déjà fixe) */
+/* Conteneur de drawer (base modale centrée) */
 .drawer{position:fixed;inset:0;z-index:3000;pointer-events:none;overflow:hidden;}
 .drawer .overlay{
   position:absolute;inset:0;background:rgba(0,0,0,.35);
@@ -241,47 +241,53 @@ html.no-vt *{view-transition-name:none!important;}
   .nav{display:none!important;}
   .lang-switch{display:none!important;}
 
-  /* ====== Drawer mobile — panneau FIXE sous header, pas plein écran ====== */
+  /* ===== Drawer mobile — panneau FIXE sous header (pas plein écran) ===== */
   .drawer .overlay{
-    position:fixed;
-    top:var(--header-h); left:0; right:0;
-    height:calc(100dvh - var(--header-h));
-    background:rgba(0,0,0,.30);
-    opacity:0; transition:opacity .28s ease; pointer-events:none;
+    position:fixed !important;
+    top:var(--header-h) !important; left:0 !important; right:0 !important;
+    height:calc(100dvh - var(--header-h)) !important;
+    background:rgba(0,0,0,.30) !important;
+    opacity:0 !important; transition:opacity .28s ease !important; pointer-events:none !important;
   }
+
+  /* ✅ CLÉ : panel en fixed sous le header + hauteur limitée + scroll interne */
   .drawer .panel{
-    position:fixed;                             /* ✅ clé : s'aligne au viewport */
-    top:var(--header-h); right:0; left:auto;
-    width:min(86%,420px); max-width:420px;
-    max-height:calc(100dvh - var(--header-h) - 12px);  /* pas plein écran */
-    margin:6px 0;
-    border-radius:16px 0 0 16px;
-    height:auto;
-    overflow-y:auto;                             /* scroll interne si besoin */
-    transform:translateX(24px); opacity:0;
-    background:#fff;
+    position:fixed !important;                 /* relatif au viewport */
+    top:var(--header-h) !important;            /* sous le header sticky */
+    right:0 !important; left:auto !important;
+    width:min(86%,420px) !important; max-width:420px !important;
+    max-height:calc(100dvh - var(--header-h) - 12px) !important;
+    margin:6px 0 !important;
+    border-radius:16px 0 0 16px !important;
+    height:auto !important;
+    overflow-y:auto !important;
+    background:#fff !important;
+    box-shadow:-12px 0 28px rgba(0,0,0,.35) !important;
+    transform:translateX(24px) !important; opacity:0 !important;
+    transition:transform .40s cubic-bezier(.22,.9,.2,1), opacity .28s var(--pl-ease) !important;
+    will-change:transform,opacity !important;
+    z-index:3001 !important; /* au-dessus de l’overlay */
   }
-  @keyframes pl-side-enter{from{transform:translateX(24px);opacity:0;}to{transform:translateX(0);opacity:1;}}
-  @keyframes pl-side-leave{from{transform:translateX(0);opacity:1);}to{transform:translateX(24px);opacity:0;}}
-  .drawer.open .panel{animation:pl-side-enter .40s cubic-bezier(.22,.9,.2,1) both;}
-  .drawer.closing .panel{animation:pl-side-leave .30s cubic-bezier(.4,0,.2,1) both;}
-  .drawer.open .overlay{opacity:1;pointer-events:auto;}
+
+  /* 👉 Neutralise l’ancienne anim “modale centrée” qui coupait l’affichage */
+  .drawer .panel,
+  .drawer.open .panel,
+  .drawer.closing .panel{ animation:none !important; }
+
+  .drawer.open{ pointer-events:auto !important; }
+  .drawer.open .overlay{ opacity:1 !important; pointer-events:auto !important; }
+  .drawer.open .panel{ transform:translateX(0) !important; opacity:1 !important; }
+
+  /* RTL (ouvre à gauche) */
+  html[dir="rtl"] .drawer .panel{
+    right:auto !important; left:0 !important;
+    border-radius:0 16px 16px 0 !important;
+    transform:translateX(-24px) !important;
+  }
+  html[dir="rtl"] .drawer.open .panel{ transform:translateX(0) !important; }
 
   .drawer .lang-switch{display:flex!important;gap:10px;align-items:center;}
   .contact-page .hero{padding:48px var(--edge-mobile)!important;}
-}
-
-/* ===== RTL SUPPORT (mobile drawer sens inverse) ================= */
-@media (max-width:1020px){
-  html[dir="rtl"] .drawer .panel{
-    left:0!important; right:auto!important;
-    border-radius:0 16px 16px 0!important;
-    transform:translateX(-24px); opacity:0;
-  }
-  @keyframes pl-side-enter-rtl{from{transform:translateX(-24px);opacity:0;}to{transform:translateX(0);opacity:1;}}
-  @keyframes pl-side-leave-rtl{from{transform:translateX(0);opacity:1);}to{transform:translateX(-24px);opacity:0;}}
-  html[dir="rtl"] .drawer.open .panel{animation:pl-side-enter-rtl .40s cubic-bezier(.22,.9,.2,1) both;}
-  html[dir="rtl"] .drawer.closing .panel{animation:pl-side-leave-rtl .30s cubic-bezier(.4,0,.2,1) both;}
 }
 
 /* === MICRO ALIGNEMENT OPTIQUE HEADER MOBILE =================== */
