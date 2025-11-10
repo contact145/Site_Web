@@ -38,6 +38,8 @@
   "services.title": "Services",
   "services.lead": "Power Link propose des solutions complètes pour le solaire et la recharge, du design système à l’installation et la maintenance long terme. Notre équipe vise l’efficacité maximale, la durabilité et le meilleur retour sur investissement.",
   "services.our": "Nos services",
+  "services.blockText1": "Nous concevons, installons et entretenons des systèmes photovoltaïques et des infrastructures de recharge adaptées à votre site et à vos objectifs.",
+  "services.blockText2": "De la consultation initiale et de l’étude de faisabilité aux options de financement et à la maintenance long terme, nous délivrons une valeur de bout en bout.",
   "services.card.install.title": "Installation et montage",
   "services.card.install.body": "Installation clé en main en toiture et au sol, avec un rendement optimisé, une sécurité maîtrisée et une esthétique soignée.",
   "services.card.maint.title": "Maintenance et soins",
@@ -57,13 +59,3 @@
   "team.sullivan.role": "PDG / Ingénieur",
   "team.sullivan.exp": "2 ans d’expérience dans les énergies renouvelables.",
 
-  "contact.title": "Contactez-nous",
-  "contact.label.name": "Nom complet",
-  "contact.label.email": "E-mail",
-  "contact.label.message": "Message",
-  "contact.placeholder.name": "Votre nom",
-  "contact.placeholder.email": "Votre e-mail",
-  "contact.placeholder.message": "Votre message…",
-  "contact.send": "Envoyer",
-  "contact.success": "Merci ! Votre message a bien été envoyé. Notre équipe vous répondra dans les plus brefs délais."
-}
