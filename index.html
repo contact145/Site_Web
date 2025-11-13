@@ -9,7 +9,6 @@
     :root {
       --green-900:#0F2A1F; 
       --green-200:#BDEBC7;
-      --green-300:#69B779;
       --muted:#CFE3D6;
     }
 
@@ -22,29 +21,44 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       text-align: center;
     }
 
     .box {
+      position: relative;
       max-width: 520px;
+      width: 90%;
       background: rgba(255,255,255,0.05);
       padding: 48px 40px;
       border-radius: 26px;
       box-shadow: 0 14px 40px rgba(0,0,0,0.35);
       border: 1px solid rgba(255,255,255,0.09);
       backdrop-filter: blur(6px);
+      overflow: hidden;
     }
 
-    .logo {
-      width: 120px;
-      margin-bottom: 28px;
-      border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    /* Logo en filigrane */
+    .box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("/assets/logo.jpg");
+      background-repeat: no-repeat;
+      background-position: center 18%;
+      background-size: 170px auto;
+      opacity: 0.08;           /* filigrane léger */
+      pointer-events: none;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
+    }
+
+    .content {
+      position: relative;      /* pour passer devant le logo */
+      z-index: 1;
     }
 
     h1 {
-      margin-top: 0;
+      margin-top: 50px;        /* pour ne pas être collé au logo */
       margin-bottom: 14px;
       font-size: 34px;
       font-weight: 800;
@@ -64,21 +78,39 @@
       font-size: 14px;
       color: rgba(255,255,255,0.45);
     }
+
+    @media (max-width: 600px) {
+      .box {
+        padding: 36px 24px;
+        border-radius: 22px;
+      }
+      .box::before {
+        background-size: 140px auto;
+        background-position: center 16%;
+      }
+      h1 {
+        margin-top: 46px;
+        font-size: 28px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <div class="box">
-    <img src="/assets/logo.jpg" alt="Power Link" class="logo">
+    <div class="content">
+      <h1>We’ll Be Back Shortly</h1>
+      <p>
+        We are performing scheduled maintenance to improve your experience.<br>
+        Thank you for your patience.
+      </p>
 
-    <h1>We’ll Be Back Shortly</h1>
-    <p>
-      We are performing scheduled maintenance to improve your experience.<br>
-      Thank you for your patience.
-    </p>
-
-    <div class="small">
-      Power Link © All rights reserved
+      <div class="small">
+        Power Link © All rights reserved
+      </div>
     </div>
   </div>
 </body>
