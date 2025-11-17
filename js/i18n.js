@@ -1,6 +1,5 @@
 /* ===== POWER LINK — i18n (compat data-i18n + /i18n/*.json) + Drawer + VT Guard ===== */
 (function () {
-  // --- Debug (mettre false pour couper les logs) ---
   const DEBUG = false;
   const log  = (...a)=>DEBUG&&console.log('[PL]',...a);
   const warn = (...a)=>DEBUG&&console.warn('[PL]',...a);
@@ -16,13 +15,12 @@
     const root = getRoot();
     root.classList.remove("page-leave");
     root.classList.remove("page-enter");
-    void root.offsetWidth; // reflow
+    void root.offsetWidth;
     root.classList.add("page-enter");
   }
 
   /* ---------- I18N ---------- */
   const SUPPORTED = ["en", "fr", "ar"];
-  // priorité : langue forcée depuis le script du <head>, puis ?lang, puis localStorage
   const bootLang  = window.__PL_START_LANG__ || null;
   const queryLang = new URL(location.href).searchParams.get("lang");
   const savedLang = localStorage.getItem("lang");
@@ -30,7 +28,7 @@
     ? (bootLang || queryLang || savedLang || "en").toLowerCase()
     : "en";
 
-  let switching = false; // anti double-clic
+  let switching = false;
 
   function normalizeLang(code){
     const c = (code || "").toLowerCase();
@@ -57,10 +55,6 @@
     document.documentElement.dir  = rtl ? "rtl" : "ltr";
   }
 
-  // Compat avec ton HTML historique:
-  //  - data-i18n -> innerText
-  //  - data-i18n-placeholder -> placeholder
-  //  - meta.title -> <title>, meta.desc -> <meta name="description">
   function translate(dict) {
     let count = 0;
 
@@ -104,7 +98,7 @@
 
     lang = normalizeLang(lang);
     const root = document.documentElement;
-    root.classList.add("no-vt"); // coupe View Transitions pendant les gros changements
+    root.classList.add("no-vt");
 
     try {
       localStorage.setItem("lang", lang);
@@ -112,7 +106,7 @@
       const dict = await loadDict(lang);
       translate(dict);
       activateFlag(lang);
-      retriggerEnter(); // rejoue l'anim d'entrée après traduction
+      retriggerEnter();
       if (push) {
         const u = new URL(location.href);
         u.searchParams.set("lang", lang);
@@ -124,12 +118,11 @@
       requestAnimationFrame(() => {
         root.classList.remove("no-vt");
         switching = false;
-        root.classList.remove("preload"); // <-- on retire la classe après traduction
+        root.classList.remove("preload");
       });
     }
   }
 
-  // Expose pour usage externe éventuel
   window.setLanguage = setLang;
 
   /* ---------- UI (drawer, flags, esc) ---------- */
@@ -143,20 +136,20 @@
         const closeBtn = e.target.closest(".drawer-close, .overlay");
         const flagEl   = e.target.closest(".lang-btn,[data-lang],#flag-en,#flag-fr,#flag-ar");
 
-        // OUVRIR LE MENU (burger)
+        // 👉 OUVRIR le menu : on place le drawer à la position actuelle de la page
         if (openBtn && drawer) {
-          // Empêche le <a href="#"> de faire remonter la page en haut
-          e.preventDefault();
+          e.preventDefault();             // évite le scroll en haut sur <a href="#">
+          drawer.style.top = window.scrollY + "px"; // suit là où tu es sur la page
           drawer.classList.add("open");
         }
 
-        // FERMER LE MENU (croix / overlay)
+        // 👉 FERMER le menu
         if (closeBtn && drawer) {
           e.preventDefault();
           drawer.classList.remove("open");
         }
 
-        // CHANGEMENT DE LANGUE
+        // 👉 Changement de langue
         if (flagEl) {
           e.preventDefault();
           e.stopPropagation();
@@ -176,13 +169,12 @@
       true
     );
 
-    // ESC ferme le drawer
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") drawer?.classList.remove("open");
     });
   }
 
-  /* ---------- Page transitions (View Transitions + fallback) ---------- */
+  /* ---------- Page transitions ---------- */
   function bindPageTransitions() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -240,7 +232,7 @@
     );
   }
 
-  /* ---------- Contact form (Formspree) ---------- */
+  /* ---------- Contact form ---------- */
   function bindContactForm() {
     const form = document.getElementById("contact-form");
     if (!form) return;
@@ -284,7 +276,7 @@
       "DOMContentLoaded",
       () => {
         boot();
-        setLang(START, false); // charge la langue choisie
+        setLang(START, false);
       },
       { once: true }
     );
