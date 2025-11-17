@@ -131,6 +131,27 @@
   /* ---------- UI (drawer, flags, esc) ---------- */
   function bindUI() {
     const drawer = document.querySelector(".drawer");
+    const body   = document.body;
+
+    function openDrawer() {
+      if (!drawer) return;
+      drawer.classList.add("open");
+      drawer.setAttribute("aria-hidden", "false");
+      body.dataset.plScrollLock = window.scrollY.toString();
+      body.style.overflow = "hidden"; // bloque le scroll derrière le menu
+    }
+
+    function closeDrawer() {
+      if (!drawer) return;
+      drawer.classList.remove("open");
+      drawer.classList.remove("closing");
+      drawer.setAttribute("aria-hidden", "true");
+
+      // rétablit le scroll du body
+      if (body.dataset.plScrollLock) {
+        body.style.overflow = "";
+      }
+    }
 
     document.addEventListener(
       "click",
@@ -139,21 +160,17 @@
         const closeBtn = e.target.closest(".drawer-close, .overlay");
         const flagEl   = e.target.closest(".lang-btn,[data-lang],#flag-en,#flag-fr,#flag-ar");
 
-        // OUVERTURE DU MENU MOBILE
+        // ✅ OUVERTURE DU MENU (sans bouger la page)
         if (openBtn) {
-          // Si on est en mobile, on remonte en haut pour voir le menu
-          if (window.matchMedia("(max-width: 1020px)").matches) {
-            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-          }
-          drawer?.classList.add("open");
+          openDrawer();
         }
 
-        // FERMETURE DU MENU
+        // ✅ FERMETURE DU MENU
         if (closeBtn) {
-          drawer?.classList.remove("open");
+          closeDrawer();
         }
 
-        // Changement de langue
+        // ✅ Changement de langue
         if (flagEl) {
           e.preventDefault();
           e.stopPropagation();
@@ -168,7 +185,9 @@
     );
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") drawer?.classList.remove("open");
+      if (e.key === "Escape") {
+        closeDrawer();
+      }
     });
   }
 
