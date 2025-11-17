@@ -5,7 +5,6 @@
   const warn = (...a)=>DEBUG&&console.warn('[PL]',...a);
   const err  = (...a)=>console.error('[PL]',...a);
 
-  /* ---------- Helpers (root + transition enter) ---------- */
   function getRoot() {
     const el = document.querySelector(".page-root") || document.querySelector("main") || document.body;
     el.classList.add("page-root");
@@ -19,7 +18,6 @@
     root.classList.add("page-enter");
   }
 
-  /* ---------- I18N ---------- */
   const SUPPORTED = ["en", "fr", "ar"];
   const bootLang  = window.__PL_START_LANG__ || null;
   const queryLang = new URL(location.href).searchParams.get("lang");
@@ -136,10 +134,10 @@
         const closeBtn = e.target.closest(".drawer-close, .overlay");
         const flagEl   = e.target.closest(".lang-btn,[data-lang],#flag-en,#flag-fr,#flag-ar");
 
-        // 👉 OUVRIR le menu : on place le drawer à la position actuelle de la page
+        // 👉 OUVRIR le menu à la position actuelle de la page
         if (openBtn && drawer) {
-          e.preventDefault();             // évite le scroll en haut sur <a href="#">
-          drawer.style.top = window.scrollY + "px"; // suit là où tu es sur la page
+          e.preventDefault();                          // empêche le href="#" de scroller en haut
+          drawer.style.top = window.scrollY + "px";    // suit la position actuelle
           drawer.classList.add("open");
         }
 
@@ -264,7 +262,6 @@
     });
   }
 
-  /* ---------- Boot ---------- */
   function boot() {
     bindUI();
     bindPageTransitions();
