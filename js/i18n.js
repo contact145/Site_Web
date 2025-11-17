@@ -130,7 +130,14 @@
 
   /* ---------- UI (drawer, flags, esc) ---------- */
   function bindUI() {
-    const drawer = document.querySelector(".drawer");
+    const drawer = document.querySelector('.drawer');
+const burger = document.querySelector('.hamburger');
+
+burger?.addEventListener('click', () => {
+  if (!drawer) return;
+  drawer.style.top = window.scrollY + "px";   // ❤️ POSITION EXACTE SUR LA PAGE
+  drawer.classList.add('open');
+});
 
     document.addEventListener(
       "click",
