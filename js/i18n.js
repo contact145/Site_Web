@@ -2,9 +2,9 @@
 (function () {
   // --- Debug (mettre false pour couper les logs) ---
   const DEBUG = false;
-  const log = (...a)=>DEBUG&&console.log('[PL]',...a);
-  const warn= (...a)=>DEBUG&&console.warn('[PL]',...a);
-  const err = (...a)=>console.error('[PL]',...a);
+  const log  = (...a)=>DEBUG&&console.log('[PL]',...a);
+  const warn = (...a)=>DEBUG&&console.warn('[PL]',...a);
+  const err  = (...a)=>console.error('[PL]',...a);
 
   /* ---------- Helpers (root + transition enter) ---------- */
   function getRoot() {
@@ -23,7 +23,7 @@
   /* ---------- I18N ---------- */
   const SUPPORTED = ["en", "fr", "ar"];
   // priorité : langue forcée depuis le script du <head>, puis ?lang, puis localStorage
-  const bootLang = window.__PL_START_LANG__ || null;
+  const bootLang  = window.__PL_START_LANG__ || null;
   const queryLang = new URL(location.href).searchParams.get("lang");
   const savedLang = localStorage.getItem("lang");
   const START = SUPPORTED.includes((bootLang || queryLang || savedLang || "en").toLowerCase())
@@ -76,7 +76,11 @@
     if (dict["meta.title"]) { document.title = dict["meta.title"]; count++; }
     if (dict["meta.desc"]) {
       let m = document.querySelector('meta[name="description"]');
-      if (!m) { m = document.createElement("meta"); m.name = "description"; document.head.appendChild(m); }
+      if (!m) {
+        m = document.createElement("meta");
+        m.name = "description";
+        document.head.appendChild(m);
+      }
       m.content = dict["meta.desc"];
       count++;
     }
@@ -130,31 +134,39 @@
 
   /* ---------- UI (drawer, flags, esc) ---------- */
   function bindUI() {
-    const drawer = document.querySelector('.drawer');
-const burger = document.querySelector('.hamburger');
-
-burger?.addEventListener('click', () => {
-  if (!drawer) return;
-  drawer.style.top = window.scrollY + "px";   // ❤️ POSITION EXACTE SUR LA PAGE
-  drawer.classList.add('open');
-});
+    const drawer = document.querySelector(".drawer");
 
     document.addEventListener(
       "click",
       (e) => {
-        const openBtn = e.target.closest(".hamburger, .menu-toggle");
+        const openBtn  = e.target.closest(".hamburger, .menu-toggle");
         const closeBtn = e.target.closest(".drawer-close, .overlay");
         const flagEl   = e.target.closest(".lang-btn,[data-lang],#flag-en,#flag-fr,#flag-ar");
 
-        if (openBtn) drawer?.classList.add("open");
-        if (closeBtn) drawer?.classList.remove("open");
+        // OUVRIR LE MENU (burger)
+        if (openBtn && drawer) {
+          drawer.style.top = window.scrollY + "px"; // position exacte sur la page
+          drawer.classList.add("open");
+        }
 
+        // FERMER LE MENU (croix / overlay)
+        if (closeBtn && drawer) {
+          drawer.classList.remove("open");
+        }
+
+        // CHANGEMENT DE LANGUE
         if (flagEl) {
           e.preventDefault();
           e.stopPropagation();
           const attrLang =
             flagEl.dataset?.lang ||
-            (flagEl.id === "flag-en" ? "en" : flagEl.id === "flag-fr" ? "fr" : flagEl.id === "flag-ar" ? "ar" : "");
+            (flagEl.id === "flag-en"
+              ? "en"
+              : flagEl.id === "flag-fr"
+              ? "fr"
+              : flagEl.id === "flag-ar"
+              ? "ar"
+              : "");
           const lang = normalizeLang(attrLang);
           setLang(lang);
         }
@@ -162,6 +174,7 @@ burger?.addEventListener('click', () => {
       true
     );
 
+    // ESC ferme le drawer
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") drawer?.classList.remove("open");
     });
@@ -173,51 +186,56 @@ burger?.addEventListener('click', () => {
 
     let navigating = false;
 
-    document.addEventListener("click", (e) => {
-      if (navigating) return;
-      if (e.target.closest(".lang-btn,[data-lang]") || e.target.closest("[data-no-transition]")) return;
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (navigating) return;
+        if (e.target.closest(".lang-btn,[data-lang]") || e.target.closest("[data-no-transition]")) return;
 
-      const a = e.target.closest("a[href]");
-      if (!a) return;
+        const a = e.target.closest("a[href]");
+        if (!a) return;
 
-      const href = a.getAttribute("href");
-      if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
+        const href = a.getAttribute("href");
+        if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
 
-      const url = new URL(a.href, location.href);
-      const sameOrigin = url.origin === location.origin;
-      const sameTab = a.target !== "_blank" && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
-      if (!sameOrigin || !sameTab) return;
+        const url = new URL(a.href, location.href);
+        const sameOrigin = url.origin === location.origin;
+        const sameTab =
+          a.target !== "_blank" && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
+        if (!sameOrigin || !sameTab) return;
 
-      e.preventDefault();
-      navigating = true;
+        e.preventDefault();
+        navigating = true;
 
-      const goto = () => (location.href = url.href);
+        const goto = () => (location.href = url.href);
 
-      if (document.startViewTransition) {
-        document.startViewTransition(() => goto());
-        return;
-      }
+        if (document.startViewTransition) {
+          document.startViewTransition(() => goto());
+          return;
+        }
 
-      const root = getRoot();
-      root.classList.remove("page-enter");
-      void root.offsetWidth;
-      root.classList.add("page-leave");
+        const root = getRoot();
+        root.classList.remove("page-enter");
+        void root.offsetWidth;
+        root.classList.add("page-leave");
 
-      const onEnd = (ev) => {
-        if (ev.target !== root) return;
-        root.removeEventListener("animationend", onEnd);
-        goto();
-      };
-      const fallbackTimer = setTimeout(goto, 1200);
-      root.addEventListener(
-        "animationend",
-        (ev) => {
-          clearTimeout(fallbackTimer);
-          onEnd(ev);
-        },
-        { once: true }
-      );
-    }, true);
+        const onEnd = (ev) => {
+          if (ev.target !== root) return;
+          root.removeEventListener("animationend", onEnd);
+          goto();
+        };
+        const fallbackTimer = setTimeout(goto, 1200);
+        root.addEventListener(
+          "animationend",
+          (ev) => {
+            clearTimeout(fallbackTimer);
+            onEnd(ev);
+          },
+          { once: true }
+        );
+      },
+      true
+    );
   }
 
   /* ---------- Contact form (Formspree) ---------- */
