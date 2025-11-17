@@ -139,20 +139,9 @@
         const closeBtn = e.target.closest(".drawer-close, .overlay");
         const flagEl   = e.target.closest(".lang-btn,[data-lang],#flag-en,#flag-fr,#flag-ar");
 
-        // OUVERTURE DU MENU – on ne touche pas au scroll
-        if (openBtn && drawer) {
-          drawer.classList.add("open");
-          drawer.setAttribute("aria-hidden", "false");
-        }
+        if (openBtn) drawer?.classList.add("open");
+        if (closeBtn) drawer?.classList.remove("open");
 
-        // FERMETURE DU MENU
-        if (closeBtn && drawer) {
-          drawer.classList.remove("open");
-          drawer.classList.remove("closing");
-          drawer.setAttribute("aria-hidden", "true");
-        }
-
-        // Changement de langue
         if (flagEl) {
           e.preventDefault();
           e.stopPropagation();
@@ -167,11 +156,7 @@
     );
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && drawer) {
-        drawer.classList.remove("open");
-        drawer.classList.remove("closing");
-        drawer.setAttribute("aria-hidden", "true");
-      }
+      if (e.key === "Escape") drawer?.classList.remove("open");
     });
   }
 
