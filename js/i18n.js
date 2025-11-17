@@ -139,9 +139,21 @@
         const closeBtn = e.target.closest(".drawer-close, .overlay");
         const flagEl   = e.target.closest(".lang-btn,[data-lang],#flag-en,#flag-fr,#flag-ar");
 
-        if (openBtn) drawer?.classList.add("open");
-        if (closeBtn) drawer?.classList.remove("open");
+        // OUVERTURE DU MENU MOBILE
+        if (openBtn) {
+          // Si on est en mobile, on remonte en haut pour voir le menu
+          if (window.matchMedia("(max-width: 1020px)").matches) {
+            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+          }
+          drawer?.classList.add("open");
+        }
 
+        // FERMETURE DU MENU
+        if (closeBtn) {
+          drawer?.classList.remove("open");
+        }
+
+        // Changement de langue
         if (flagEl) {
           e.preventDefault();
           e.stopPropagation();
