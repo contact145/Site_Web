@@ -95,7 +95,16 @@ html.no-vt *{view-transition-name:none!important;}
 .hamburger span::before{position:absolute;transform:translateY(-6px)}
 .hamburger span::after{position:absolute;transform:translateY(6px)}
 
-.drawer{position:fixed;inset:0;z-index:3000;pointer-events:none;overflow:hidden;}
+.drawer {
+  position: absolute; /* au lieu de fixed */
+  left: 0;
+  right: 0;
+  top: 0; /* sera mis à jour en JS */
+  z-index: 60;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 .drawer .overlay{
   position:absolute;inset:0;background:rgba(0,0,0,.35);
   opacity:0;transition:opacity .28s ease;pointer-events:none;
