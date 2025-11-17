@@ -240,7 +240,7 @@ html.no-vt *{view-transition-name:none!important;}
   .nav{display:none!important;}
   .lang-switch{display:none!important;}
 
-  /* Drawer mobile LTR */
+  /* Drawer mobile LTR - sera surchargé par le patch en bas */
   .drawer .panel{
     top:0;bottom:0;right:0;left:auto;border-radius:16px 0 0 16px;
     width:min(86%,420px);max-width:420px;height:100%;
@@ -283,3 +283,56 @@ html[dir="rtl"] .actions{
 .btn{margin:0;}
 .btn + .btn{margin-inline-start:12px;}
 html[dir="rtl"] .btn + .btn{margin-inline-start:0;margin-inline-end:12px;}
+
+/* ===== PATCH MENU MOBILE : DROPDOWN SOUS LE HEADER ============= */
+@media (max-width:1020px){
+  /* le conteneur du menu se cale sous le header sticky, peu importe où on est sur la page */
+  .drawer{
+    position:fixed;
+    top:var(--header-h);
+    left:0;
+    right:0;
+    bottom:auto;
+    z-index:3000;
+    pointer-events:none;
+    overflow:visible;
+  }
+
+  /* on enlève l’overlay plein écran en mobile pour ne pas bloquer visuellement la page */
+  .drawer .overlay{
+    display:none;
+  }
+
+  /* le panneau devient un dropdown collé sous le header */
+  .drawer .panel{
+    position:relative;
+    top:auto;
+    left:auto;
+    right:auto;
+    bottom:auto;
+    width:100%;
+    max-width:none;
+    height:auto;
+    border-radius:0 0 16px 16px;
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+    transform:translateY(-10px);
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .drawer.open{
+    pointer-events:auto;
+  }
+
+  .drawer.open .panel{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+    animation:pl-drop-menu .20s ease-out both;
+  }
+
+  @keyframes pl-drop-menu{
+    from{opacity:0;transform:translateY(-8px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+}
