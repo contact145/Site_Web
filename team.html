@@ -4,6 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- Petit boot pour mettre tout de suite la bonne direction -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('lang') || 'en';
+      document.documentElement.lang = saved;
+      document.documentElement.dir  = (saved === 'ar') ? 'rtl' : 'ltr';
+    })();
+  </script>
+
+  <!-- Titre + description branchés sur i18n -->
+  <title data-i18n="meta.title">Power Link — Team</title>
+  <meta name="description"
+        data-i18n="meta.desc"
+        content="Meet the Power Link team.">
+
+  <link rel="stylesheet" href="/css/styles.css">
+
   <style>
     /* ——— Ajustements mobiles locaux à la page TEAM ——— */
     @media (max-width: 640px){
@@ -16,14 +33,6 @@
       .member-card h2{ font-size: 1.35rem !important; }
     }
   </style>
-
-  <!-- Titre + description branchés i18n global -->
-  <title data-i18n="meta.title">Power Link — Team</title>
-  <meta name="description"
-        data-i18n="meta.desc"
-        content="Meet the Power Link team.">
-
-  <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body class="page-enter">
@@ -49,7 +58,6 @@
     <div class="overlay"></div>
     <div class="panel">
       <div class="drawer-header">
-        <!-- Titre du tiroir -->
         <h3 class="drawer-title" data-i18n="nav.menu">Main Menu</h3>
         <div class="lang-switch">
           <button class="lang-btn" data-lang="fr"><img src="/assets/flags/fr.svg" alt=""></button>
@@ -129,7 +137,8 @@
     © 2025 Power Link
   </footer>
 
-  <!-- IMPORTANT : ajuste le chemin si besoin -->
-  <script src="/i18n/i18n.js"></script>
+  <!-- TRÈS IMPORTANT : même chemin que sur ta page d’accueil -->
+  <script src="/js/i18n.js"></script>
+  <!-- Si sur ton index c'est /i18n/i18n.js, remplace cette ligne par la même. -->
 </body>
 </html>
