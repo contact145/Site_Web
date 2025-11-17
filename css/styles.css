@@ -96,10 +96,11 @@ html.no-vt *{view-transition-name:none!important;}
 .hamburger span::after{position:absolute;transform:translateY(6px)}
 
 .drawer {
-  position: absolute; /* au lieu de fixed */
+  position: absolute;  /* au lieu de fixed */
   left: 0;
   right: 0;
-  top: 0; /* sera mis à jour en JS */
+  top: 0;              /* mis à jour en JS avec scrollY */
+  height: 100vh;       /* couvre toute la hauteur de l'écran */
   z-index: 60;
   pointer-events: none;
   overflow: hidden;
