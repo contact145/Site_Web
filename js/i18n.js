@@ -145,12 +145,14 @@
 
         // OUVRIR LE MENU (burger)
         if (openBtn && drawer) {
-          drawer.style.top = window.scrollY + "px"; // position exacte sur la page
+          // Empêche le <a href="#"> de faire remonter la page en haut
+          e.preventDefault();
           drawer.classList.add("open");
         }
 
         // FERMER LE MENU (croix / overlay)
         if (closeBtn && drawer) {
+          e.preventDefault();
           drawer.classList.remove("open");
         }
 
