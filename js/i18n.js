@@ -1,10 +1,12 @@
 /* ===== POWER LINK — i18n (compat data-i18n + /i18n/*.json) + Drawer + VT Guard ===== */
 (function () {
+  // --- Debug (mettre false pour couper les logs) ---
   const DEBUG = false;
-  const log  = (...a)=>DEBUG&&console.log('[PL]',...a);
-  const warn = (...a)=>DEBUG&&console.warn('[PL]',...a);
-  const err  = (...a)=>console.error('[PL]',...a);
+  const log = (...a)=>DEBUG&&console.log('[PL]',...a);
+  const warn= (...a)=>DEBUG&&console.warn('[PL]',...a);
+  const err = (...a)=>console.error('[PL]',...a);
 
+  /* ---------- Helpers (root + transition enter) ---------- */
   function getRoot() {
     const el = document.querySelector(".page-root") || document.querySelector("main") || document.body;
     el.classList.add("page-root");
@@ -14,19 +16,21 @@
     const root = getRoot();
     root.classList.remove("page-leave");
     root.classList.remove("page-enter");
-    void root.offsetWidth;
+    void root.offsetWidth; // reflow
     root.classList.add("page-enter");
   }
 
+  /* ---------- I18N ---------- */
   const SUPPORTED = ["en", "fr", "ar"];
-  const bootLang  = window.__PL_START_LANG__ || null;
+  // priorité : langue forcée depuis le script du <head>, puis ?lang, puis localStorage
+  const bootLang = window.__PL_START_LANG__ || null;
   const queryLang = new URL(location.href).searchParams.get("lang");
   const savedLang = localStorage.getItem("lang");
   const START = SUPPORTED.includes((bootLang || queryLang || savedLang || "en").toLowerCase())
     ? (bootLang || queryLang || savedLang || "en").toLowerCase()
     : "en";
 
-  let switching = false;
+  let switching = false; // anti double-clic
 
   function normalizeLang(code){
     const c = (code || "").toLowerCase();
@@ -53,6 +57,10 @@
     document.documentElement.dir  = rtl ? "rtl" : "ltr";
   }
 
+  // Compat avec ton HTML historique:
+  //  - data-i18n -> innerText
+  //  - data-i18n-placeholder -> placeholder
+  //  - meta.title -> <title>, meta.desc -> <meta name="description">
   function translate(dict) {
     let count = 0;
 
@@ -68,11 +76,7 @@
     if (dict["meta.title"]) { document.title = dict["meta.title"]; count++; }
     if (dict["meta.desc"]) {
       let m = document.querySelector('meta[name="description"]');
-      if (!m) {
-        m = document.createElement("meta");
-        m.name = "description";
-        document.head.appendChild(m);
-      }
+      if (!m) { m = document.createElement("meta"); m.name = "description"; document.head.appendChild(m); }
       m.content = dict["meta.desc"];
       count++;
     }
@@ -96,7 +100,7 @@
 
     lang = normalizeLang(lang);
     const root = document.documentElement;
-    root.classList.add("no-vt");
+    root.classList.add("no-vt"); // coupe View Transitions pendant les gros changements
 
     try {
       localStorage.setItem("lang", lang);
@@ -104,7 +108,7 @@
       const dict = await loadDict(lang);
       translate(dict);
       activateFlag(lang);
-      retriggerEnter();
+      retriggerEnter(); // rejoue l'anim d'entrée après traduction
       if (push) {
         const u = new URL(location.href);
         u.searchParams.set("lang", lang);
@@ -116,11 +120,12 @@
       requestAnimationFrame(() => {
         root.classList.remove("no-vt");
         switching = false;
-        root.classList.remove("preload");
+        root.classList.remove("preload"); // <-- on retire la classe après traduction
       });
     }
   }
 
+  // Expose pour usage externe éventuel
   window.setLanguage = setLang;
 
   /* ---------- UI (drawer, flags, esc) ---------- */
@@ -130,36 +135,19 @@
     document.addEventListener(
       "click",
       (e) => {
-        const openBtn  = e.target.closest(".hamburger, .menu-toggle");
+        const openBtn = e.target.closest(".hamburger, .menu-toggle");
         const closeBtn = e.target.closest(".drawer-close, .overlay");
         const flagEl   = e.target.closest(".lang-btn,[data-lang],#flag-en,#flag-fr,#flag-ar");
 
-        // 👉 OUVRIR le menu à la position actuelle de la page
-        if (openBtn && drawer) {
-          e.preventDefault();                          // empêche le href="#" de scroller en haut
-          drawer.style.top = window.scrollY + "px";    // suit la position actuelle
-          drawer.classList.add("open");
-        }
+        if (openBtn) drawer?.classList.add("open");
+        if (closeBtn) drawer?.classList.remove("open");
 
-        // 👉 FERMER le menu
-        if (closeBtn && drawer) {
-          e.preventDefault();
-          drawer.classList.remove("open");
-        }
-
-        // 👉 Changement de langue
         if (flagEl) {
           e.preventDefault();
           e.stopPropagation();
           const attrLang =
             flagEl.dataset?.lang ||
-            (flagEl.id === "flag-en"
-              ? "en"
-              : flagEl.id === "flag-fr"
-              ? "fr"
-              : flagEl.id === "flag-ar"
-              ? "ar"
-              : "");
+            (flagEl.id === "flag-en" ? "en" : flagEl.id === "flag-fr" ? "fr" : flagEl.id === "flag-ar" ? "ar" : "");
           const lang = normalizeLang(attrLang);
           setLang(lang);
         }
@@ -172,65 +160,60 @@
     });
   }
 
-  /* ---------- Page transitions ---------- */
+  /* ---------- Page transitions (View Transitions + fallback) ---------- */
   function bindPageTransitions() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let navigating = false;
 
-    document.addEventListener(
-      "click",
-      (e) => {
-        if (navigating) return;
-        if (e.target.closest(".lang-btn,[data-lang]") || e.target.closest("[data-no-transition]")) return;
+    document.addEventListener("click", (e) => {
+      if (navigating) return;
+      if (e.target.closest(".lang-btn,[data-lang]") || e.target.closest("[data-no-transition]")) return;
 
-        const a = e.target.closest("a[href]");
-        if (!a) return;
+      const a = e.target.closest("a[href]");
+      if (!a) return;
 
-        const href = a.getAttribute("href");
-        if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
+      const href = a.getAttribute("href");
+      if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
 
-        const url = new URL(a.href, location.href);
-        const sameOrigin = url.origin === location.origin;
-        const sameTab =
-          a.target !== "_blank" && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
-        if (!sameOrigin || !sameTab) return;
+      const url = new URL(a.href, location.href);
+      const sameOrigin = url.origin === location.origin;
+      const sameTab = a.target !== "_blank" && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
+      if (!sameOrigin || !sameTab) return;
 
-        e.preventDefault();
-        navigating = true;
+      e.preventDefault();
+      navigating = true;
 
-        const goto = () => (location.href = url.href);
+      const goto = () => (location.href = url.href);
 
-        if (document.startViewTransition) {
-          document.startViewTransition(() => goto());
-          return;
-        }
+      if (document.startViewTransition) {
+        document.startViewTransition(() => goto());
+        return;
+      }
 
-        const root = getRoot();
-        root.classList.remove("page-enter");
-        void root.offsetWidth;
-        root.classList.add("page-leave");
+      const root = getRoot();
+      root.classList.remove("page-enter");
+      void root.offsetWidth;
+      root.classList.add("page-leave");
 
-        const onEnd = (ev) => {
-          if (ev.target !== root) return;
-          root.removeEventListener("animationend", onEnd);
-          goto();
-        };
-        const fallbackTimer = setTimeout(goto, 1200);
-        root.addEventListener(
-          "animationend",
-          (ev) => {
-            clearTimeout(fallbackTimer);
-            onEnd(ev);
-          },
-          { once: true }
-        );
-      },
-      true
-    );
+      const onEnd = (ev) => {
+        if (ev.target !== root) return;
+        root.removeEventListener("animationend", onEnd);
+        goto();
+      };
+      const fallbackTimer = setTimeout(goto, 1200);
+      root.addEventListener(
+        "animationend",
+        (ev) => {
+          clearTimeout(fallbackTimer);
+          onEnd(ev);
+        },
+        { once: true }
+      );
+    }, true);
   }
 
-  /* ---------- Contact form ---------- */
+  /* ---------- Contact form (Formspree) ---------- */
   function bindContactForm() {
     const form = document.getElementById("contact-form");
     if (!form) return;
@@ -262,6 +245,7 @@
     });
   }
 
+  /* ---------- Boot ---------- */
   function boot() {
     bindUI();
     bindPageTransitions();
@@ -273,7 +257,7 @@
       "DOMContentLoaded",
       () => {
         boot();
-        setLang(START, false);
+        setLang(START, false); // charge la langue choisie
       },
       { once: true }
     );
