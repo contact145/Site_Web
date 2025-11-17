@@ -95,9 +95,13 @@ html.no-vt *{view-transition-name:none!important;}
 .hamburger span::before{position:absolute;transform:translateY(-6px)}
 .hamburger span::after{position:absolute;transform:translateY(6px)}
 
+/* ✅ Drawer qui suit la position de la page */
 .drawer {
-  position: fixed;
-  inset: 0;           /* top:0; right:0; bottom:0; left:0 */
+  position: absolute;      /* collé à la page, pas à la fenêtre */
+  left: 0;
+  right: 0;
+  top: 0;                  /* mis à jour en JS avec scrollY */
+  height: 100vh;           /* prend toute la hauteur de l'écran */
   z-index: 60;
   pointer-events: none;
   overflow: hidden;
@@ -223,7 +227,7 @@ html.no-vt *{view-transition-name:none!important;}
   html[dir="ltr"] .site-header .nav{order:1;margin:0!important;text-align:left;}
   html[dir="ltr"] .site-header .lang-switch{order:2;margin:0!important;}
 
-  html[dir="rtl"] .site-header .header-inner{
+  html[dir="rtl"] .site-header .header-inner}{
     flex-direction:row;align-items:center;gap:22px;justify-content:space-between;
   }
   html[dir="rtl"] .site-header .logo{order:0;margin:0!important;}
@@ -247,7 +251,7 @@ html.no-vt *{view-transition-name:none!important;}
   .nav{display:none!important;}
   .lang-switch{display:none!important;}
 
-  /* Drawer mobile LTR */
+  /* Drawer mobile LTR — panel plein écran à droite */
   .drawer .panel{
     top:0;bottom:0;right:0;left:auto;border-radius:16px 0 0 16px;
     width:min(86%,420px);max-width:420px;height:100%;
