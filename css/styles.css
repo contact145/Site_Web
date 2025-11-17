@@ -95,17 +95,7 @@ html.no-vt *{view-transition-name:none!important;}
 .hamburger span::before{position:absolute;transform:translateY(-6px)}
 .hamburger span::after{position:absolute;transform:translateY(6px)}
 
-/* 🔥 Drawer qui suit la position de la page */
-.drawer{
-  position:absolute;          /* collé au document, pas à la fenêtre */
-  left:0;
-  right:0;
-  top:0;                      /* mis à jour en JS avec scrollY */
-  height:100vh;               /* pleine hauteur de l'écran */
-  z-index:60;
-  pointer-events:none;
-  overflow:hidden;
-}
+.drawer{position:fixed;inset:0;z-index:3000;pointer-events:none;overflow:hidden;}
 .drawer .overlay{
   position:absolute;inset:0;background:rgba(0,0,0,.35);
   opacity:0;transition:opacity .28s ease;pointer-events:none;
@@ -246,16 +236,11 @@ html.no-vt *{view-transition-name:none!important;}
   }
   .logo{justify-self:start!important;margin:0!important;}
   .site-header .logo img{height:40px!important;transform:none!important;}
-
-  /* 🔥 Ici on AFFICHE l'hamburger sur mobile */
-  .hamburger{
-    display:flex;justify-self:end!important;margin:0!important;transform:none!important;
-  }
-
+  .hamburger{display:flex;justify-self:end!important;margin:0!important;transform:none!important;}
   .nav{display:none!important;}
   .lang-switch{display:none!important;}
 
-  /* Drawer mobile LTR side */
+  /* Drawer mobile LTR */
   .drawer .panel{
     top:0;bottom:0;right:0;left:auto;border-radius:16px 0 0 16px;
     width:min(86%,420px);max-width:420px;height:100%;
@@ -285,8 +270,8 @@ html.no-vt *{view-transition-name:none!important;}
 
 /* === MICRO ALIGNEMENT OPTIQUE HEADER MOBILE =================== */
 @media (max-width:1020px){
-  .logo img{transform:translateX(1px);}
-  .hamburger{transform:translateX(-1px);}
+  .logo img{transform:translateX(1px);} /* léger centrage visuel */
+  .hamburger{transform:translateX(-1px);} /* compensation opposée */
 }
 
 /* ===== Boutons RTL (CTA, etc.) ================================= */
